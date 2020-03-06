@@ -1,0 +1,2 @@
+sudo charon-cmd --host vpn.unical.it --profile ikev2-eap \
+--identity latuamatricola --cert /path/to/downloaded/letsencrypt.ca.crt
