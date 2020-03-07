@@ -15,6 +15,7 @@ gst-launch-1.0 udpsrc uri=udp://192.168.0.254:5004 ! udpsink host=192.168.1.241 
 
 #omxh264enc ! 'video/x-h264, streamformat=(string)byte-stream' ! h264parse ! flvmux streamable=true name=mux 
     gst-launch-1.0 videotestsrc is-live=1 ! videoconvert ! 'video/x-raw, format=(string)I420, width=(int)640, height=(int)480, framerate=25/1' ! queue ! omxh264enc ! 'video/x-h264, streamformat=(string)byte-stream' ! h264parse ! flvmux streamable=true name=mux ! rtmpsink location="rtmp://a.rtmp.youtube.com/live2/xxxx-xxxx-xxxx-xxxx" audiotestsrc ! voaacenc bitrate=128000 ! mux.
+    gst-launch-1.0 videotestsrc is-live=1 ! videoconvert ! 'video/x-raw, format=(string)I420, width=(int)640, height=(int)480, framerate=25/1' ! queue ! omxh264enc ! 'video/x-h264, streamformat=(string)byte-stream' ! h264parse ! flvmux streamable=true name=mux ! rtmpsink location="rtmp://a.rtmp.youtube.com/live2/gssy-a5pt-j2gr-4v1e" audiotestsrc ! voaacenc bitrate=128000 ! mux.
 
 
 WARNING: erroneous pipeline: could not link omxh264enc-omxh264enc0 to rtmpsink0
@@ -23,3 +24,18 @@ pi@raspberrypi:~ $ gst-launch-1.0 udpsrc uri=udp://192.168.0.254:5004 ! tsdemux 
 
 # from the lkv373 webpage
 gst-launch-1.0 -v udpsrc multicast-iface=”eth0″ multicast-group=239.255.42.42 auto-multicast=true port=5004 caps=”video/mpegts, media=(string)video” ! tsdemux ! decodebin ! videoconvert ! autovideosink sync=false
+gst-launch-1.0 udpsrc uri=udp://192.168.0.254:5004 caps=”video/mpegts, media=(string)video” ! tsparse ! decodebin name=dec ! queue ! videoconvert ! autovideosink sync=false dec. ! queue ! audioconvert ! autoaudiosink sync=false
+
+WARNING: from element /GstPipeline:pipeline0/GstAutoVideoSink:autovideosink0: Could not initialise Xv output
+Additional debug info:
+xvimagesink.c(1760): gst_xv_image_sink_open (): /GstXvImageSink:autovideosink0-actual-sink-xvimage:
+Could not open display (null)
+Setting pipeline to PLAYING ...
+New clock: GstSystemClock
+
+# OK FOR ASCII OUTPUT ... DON'T KNOW FOR ALSA .. BUT OK QUEUE
+gst-launch-1.0 udpsrc uri=udp://192.168.0.254:5004 caps="video/mpegts, media=(string)video" ! tsparse ! decodebin name=dec ! queue ! videoconvert ! cacasink dec. ! queue ! audioconvert ! alsasink
+ gst-launch-1.0 udpsrc uri=udp://192.168.0.254:5004 caps="video/mpegts, media=(string)video" ! tsparse ! decodebin name=dec ! queue ! videoconvert ! VVVVVVVVVVV ! queue ! audioconvert ! AAAAAAAAAAAA
+ 
+ # trying this one
+ gst-launch-1.0 udpsrc uri=udp://192.168.0.254:5004 caps="video/mpegts, media=(string)video" ! tsdemux ! 'video/x-h264' !  h264parse ! omxh264dec ! omxh264enc ! flvmux ! rtmpsink location="rtmp://a.rtmp.youtube.com/live2/gssy-a5pt-j2gr-4v1e"
