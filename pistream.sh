@@ -21,6 +21,10 @@ gst-launch-1.0 udpsrc uri=udp://192.168.0.254:5004 ! udpsink host=192.168.1.241 
 WARNING: erroneous pipeline: could not link omxh264enc-omxh264enc0 to rtmpsink0
 pi@raspberrypi:~ $ gst-launch-1.0 udpsrc uri=udp://192.168.0.254:5004 ! tsdemux ! h264parse ! omxh264dec ! omxh264enc ! rtmpsink location="rtmp://a.rtmp.youtube.com/live2/gssy-a5pt-j2gr-4v1e"
 
+# this one is VIDEOTESTSRC and works with Microsoft STREAM
+gst-launch-1.0 videotestsrc ! videoconvert ! 'video/x-raw, width=(int)1280, height=(int)720, framerate=30/1' ! queue ! omxh264enc ! h264parse ! flvmux streamable=true name=mux ! rtmpsink location="rtmp://tcmkcxmdcscpefogo2wc7hjaxa-fa5udrtaio2oezgkopoijthxdd-euwe.channel.media.azure.net:1935/live/f8e8bd1405ed4f48baf242519c65939a/123456" audiotestsrc ! voaacenc bitrate=128000 ! mux.
+
+
 
 # from the lkv373 webpage
 gst-launch-1.0 -v udpsrc multicast-iface=”eth0″ multicast-group=239.255.42.42 auto-multicast=true port=5004 caps=”video/mpegts, media=(string)video” ! tsdemux ! decodebin ! videoconvert ! autovideosink sync=false
