@@ -4,4 +4,4 @@ ffmpeg -threads 5 -i 'udp://192.168.0.254:5004?fifo_size=262144&overrun_nonfatal
 ffmpeg -threads 5 -i 'udp://192.168.0.254:5004?fifo_size=262144&overrun_nonfatal=1' -c:v h264_omx -b:v 2000k -filter:v fps=fps=30 -codec:a aac -b:a 128k -f flv  rtmp://fr.pscp.tv:80/x/27qpnt4etum9
 
 # to be tried with Ms Stream
-ffmpeg -threads 5 -i 'udp://192.168.0.254:5004?fifo_size=262144&overrun_nonfatal=1' -c:v h264_omx -profile:v base -level:v 4.0 -g 60 -keyint_min 60 -vsync cfr -b:v 1500k -maxrate 1500k -minrate 1500k -c:a aac -b:a 96k -ar 44100  -f flv rtmp://dnxm3ps67rfyuqoagqffgkfiza-fa5udrtaio2oezgkopoijthxdd-euwe.channel.media.azure.net:1935/live/7e3c4515ac30416ca0bfbfb01d2c7d89
+ffmpeg -threads 5 -i 'udp://192.168.0.254:5004?fifo_size=262144&overrun_nonfatal=1' -c:v h264_omx -profile:v base -level:v 4.0 -g 60 -keyint_min 60 -vsync cfr -b:v 1500k -maxrate 1500k -minrate 1500k -c:a aac -b:a 96k -ar 44100  -f flv rtmp://dnxm3ps67rfyuqoagqffgkfiza-fa5udrtaio2oezgkopoijthxdd-euwe.channel.media.azure.net:1935/live/7e3c4515ac30416ca0bfbfb01d2c7d89/1234
