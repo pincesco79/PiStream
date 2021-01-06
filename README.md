@@ -5,6 +5,7 @@ Extender TX is capable to send a udp encapsulated flv h264 stream on LAN, so my 
 
 # New on January 6th, 2021
 Added real interface: LCD 16x2, pushbutton and one LED
+
 Support code based on python, ffmpeg-python bindings by kkroening ffmpeg-python https://github.com/kkroening/ffmpeg-python.
 Now I can start/stop the streaming pushing a button and I can see the status on the LCD 16x2 and the blinking LED
 
